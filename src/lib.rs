@@ -1,4 +1,4 @@
-use ff::PrimeField;
+use fff::PrimeField;
 use itertools::*;
 use num_bigint::BigUint;
 

@@ -1,0 +1,6 @@
+---
+version: 0.1.0
+dyns:
+  ff.cl:
+    dockerfile: gen.Dockerfile
+    args: "$FIELD_NAME $FIELD_MODULUS"
