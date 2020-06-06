@@ -141,6 +141,6 @@ uint FIELD_get_bits(FIELD l, uint skip, uint window) {
 void FIELD_print(FIELD a) {
   printf("0x");
   for (uint i = 0; i < FIELD_LIMBS; i++) {
-    printf("%016x", a.val[FIELD_LIMBS - i - 1]);
+    printf("%016llu", a.val[FIELD_LIMBS - i - 1]);
   }
 }
