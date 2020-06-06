@@ -7,7 +7,6 @@ COPY ./Cargo.toml ./Cargo.toml
 RUN cargo fetch
 COPY ./src ./src
 RUN cargo build --release
-RUN apt-get update && apt-get install nano
 
 RUN echo '\
 echo "\
