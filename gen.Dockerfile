@@ -8,23 +8,21 @@ RUN cargo fetch
 COPY ./src ./src
 RUN cargo build --release
 RUN apt-get update && apt-get install nano
+
 RUN echo '\
+echo "\
 extern crate rand_core; \n#\
 [macro_use] \n\
 extern crate fff; \n\
 use fff::{Field, PrimeField, PrimeFieldDecodingError, PrimeFieldRepr};  \n#\
 [derive(PrimeField)]  \n#\
-[PrimeFieldModulus = "FIELD_MODULUS"]  \n#\
-[PrimeFieldGenerator = "7"]  \n\
+[PrimeFieldModulus = \"$2\"]  \n#\
+[PrimeFieldGenerator = \"7\"]  \n\
 struct Fp(FpRepr);  \n\
 fn main() {  \n\
-    println!("{}", ff_cl_gen::field::<Fp>("FIELD_NAME")); \n\
-}' > ./src/main.rs
-
-RUN echo '\
+    println!(\"{}\", ff_cl_gen::field::<Fp>(\"$1\")); \n\
+}" > ./src/main.rs \n\
 rm -rf ./target/release/ff-cl-gen > /dev/null  2>&1 \n\
-sed -i "s/FIELD_NAME/$1/g" src/main.rs > /dev/null  2>&1 \n\
-sed -i "s/FIELD_MODULUS/$2/g" src/main.rs > /dev/null  2>&1 \n\
 cargo build --release > /dev/null  2>&1 \n\
 ./target/release/ff-cl-gen' > ./gen.sh
 
